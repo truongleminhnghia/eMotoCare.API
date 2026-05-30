@@ -13,7 +13,7 @@ namespace eMotoCare.Core.Entites
         public Guid CreatedBy { get; set; } // staff
         public Guid? ExportFrom { get; set; } // service center
         public Guid? ExportTo { get; set; } // service center
-        public string ExportNoteCode { get; set; }
+        public string ExportNoteCode { get; set; } = string.Empty;
         public decimal TotalAmount { get; set; }
         public ExportNoteType ExportType { get; set; }
         public DateTime ExportDate { get; set; }

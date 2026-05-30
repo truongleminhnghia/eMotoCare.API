@@ -3,4 +3,5 @@
   <Project Path="eMotoCare.Application/eMotoCare.Application.csproj" />
   <Project Path="eMotoCare.Core/eMotoCare.Core.csproj" />
   <Project Path="eMotoCare.Infrastructure/eMotoCare.Infrastructure.csproj" />
+  <Project Path="eMotoCare.Share/eMotoCare.Share.csproj" />
 </Solution>

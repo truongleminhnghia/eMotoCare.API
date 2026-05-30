@@ -12,12 +12,12 @@ namespace eMotoCare.Core.Entites
         public Guid AppointmentId { get; set; }
         public string AppointmentCode { get; set; } = string.Empty;
         public Guid VehicleStageId { get; set; }
-        public string ProfileCode { get; set; }
-        public string VehicleCode { get; set; }
+        public string ProfileCode { get; set; } = string.Empty;
+        public string VehicleCode { get; set; } = string.Empty;
         public DateTime AppointmentDate { get; set; }
-        public string SlotTime { get; set; }
-        public string ServiceCenterCode { get; set; }
-        public string StaffCode { get; set; }
+        public string SlotTime { get; set; } = string.Empty;
+        public string ServiceCenterCode { get; set; } = string.Empty;
+        public string StaffCode { get; set; } = string.Empty;
         public AppointmentStatusEnum AppointmentStatus { get; set; }
 
         public Appointment()

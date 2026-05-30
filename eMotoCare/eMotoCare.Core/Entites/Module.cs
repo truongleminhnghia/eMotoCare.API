@@ -8,7 +8,7 @@ namespace eMotoCare.Core.Entites
 {
     public class Module
     {
-        public Guid? ModuleId { get; set; }
+        public Guid ModuleId { get; set; }
         public string ModuleName { get; set; } = string.Empty;
         public string ModuleCode { get; set; } = string.Empty;
         public int OrderIndex { get; set; }
