@@ -15,9 +15,9 @@ public static class DependencyInjection
             ?? throw new InvalidOperationException("Connection string 'DefaultConnection' was not found.");
 
         services.AddDbContext<EMotoCareDbContext>(options =>
-            options.UseSqlServer(
+            options.UseNpgsql(
                 connectionString,
-                sqlOptions => sqlOptions.MigrationsAssembly(typeof(EMotoCareDbContext).Assembly.FullName)));
+                npgsqlOptions => npgsqlOptions.MigrationsAssembly(typeof(EMotoCareDbContext).Assembly.FullName)));
 
         return services;
     }

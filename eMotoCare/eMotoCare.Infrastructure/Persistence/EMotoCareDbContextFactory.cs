@@ -11,7 +11,12 @@ public class EMotoCareDbContextFactory : IDesignTimeDbContextFactory<EMotoCareDb
     {
         EnvironmentConfiguration.LoadLocalEnvironmentVariables("Development");
 
-        string basePath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "..", "eMotoCare.API"));
+        string currentDirectory = Directory.GetCurrentDirectory();
+        string basePath = File.Exists(Path.Combine(currentDirectory, "appsettings.json"))
+            ? currentDirectory
+            : Directory.Exists(Path.Combine(currentDirectory, "eMotoCare.API"))
+                ? Path.Combine(currentDirectory, "eMotoCare.API")
+                : Path.GetFullPath(Path.Combine(currentDirectory, "..", "eMotoCare.API"));
 
         IConfigurationRoot configuration = new ConfigurationBuilder()
             .SetBasePath(basePath)
@@ -24,7 +29,7 @@ public class EMotoCareDbContextFactory : IDesignTimeDbContextFactory<EMotoCareDb
             ?? throw new InvalidOperationException("Connection string 'DefaultConnection' was not found.");
 
         DbContextOptionsBuilder<EMotoCareDbContext> optionsBuilder = new();
-        optionsBuilder.UseSqlServer(connectionString);
+        optionsBuilder.UseNpgsql(connectionString);
 
         return new EMotoCareDbContext(optionsBuilder.Options);
     }

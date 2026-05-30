@@ -15,16 +15,13 @@ public static class SwaggerBasicAuthMiddleware
                 await next();
                 return;
             }
-
             SwaggerBasicAuthSettings settings = context.RequestServices
                 .GetRequiredService<SwaggerBasicAuthSettings>();
-
             if (!settings.IsConfigured || IsAuthorized(context.Request, settings))
             {
                 await next();
                 return;
             }
-
             context.Response.Headers.WWWAuthenticate = "Basic realm=\"eMotoCare Swagger\"";
             context.Response.StatusCode = StatusCodes.Status401Unauthorized;
         });
@@ -44,10 +41,8 @@ public static class SwaggerBasicAuthMiddleware
         {
             return false;
         }
-
         string encodedCredentials = authorization["Basic ".Length..].Trim();
         string decodedCredentials;
-
         try
         {
             byte[] bytes = Convert.FromBase64String(encodedCredentials);
@@ -57,9 +52,7 @@ public static class SwaggerBasicAuthMiddleware
         {
             return false;
         }
-
         string expectedCredentials = $"{settings.Username}:{settings.Password}";
-
         return WebUtility.UrlDecode(decodedCredentials) == expectedCredentials;
     }
 }

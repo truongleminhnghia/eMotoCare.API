@@ -52,7 +52,32 @@ public class EMotoCareDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(EMotoCareDbContext).Assembly);
+        modelBuilder.ApplyPostgreSqlConventions();
         modelBuilder.UseSnakeCaseNames();
+    }
+}
+
+internal static class PostgreSqlModelBuilderExtensions
+{
+    public static void ApplyPostgreSqlConventions(this ModelBuilder modelBuilder)
+    {
+        foreach (IMutableProperty property in modelBuilder.Model
+                     .GetEntityTypes()
+                     .SelectMany(entityType => entityType.GetProperties()))
+        {
+            Type clrType = Nullable.GetUnderlyingType(property.ClrType) ?? property.ClrType;
+
+            if (clrType == typeof(decimal))
+            {
+                property.SetPrecision(18);
+                property.SetScale(2);
+            }
+
+            if (clrType == typeof(DateTime))
+            {
+                property.SetColumnType("timestamp without time zone");
+            }
+        }
     }
 }
 
